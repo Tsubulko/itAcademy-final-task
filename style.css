@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+.navigation ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20%;
+    height: 200px;
+    background: #8676d6;
+    list-style-type: none;
+    .navItem button{
+        padding: 10px 20px;
+        background: #9e4040;
+        cursor: pointer;
+        &:hover {
+            background: #9e4040a3;
+            transition: 0.5s background ease;
+        }
+    }
+}
+
+.game {
+    width: 100vw;
+    height: 80vh;
+    background: #fff134;
+}
+
+.profile {
+    width: 100vw;
+    height: 80vh;
+    background: #37cf5d;
+}
+
+.authorization {
+    width: 100vw;
+    height: 80vh;
+    background: #dd3535;
+}
