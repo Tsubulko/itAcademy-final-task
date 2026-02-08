@@ -89,5 +89,4 @@ export function updateData(updatedValue) {
   });
 }
 
-// updateData(JSON.stringify([userExample]));
-// updateData(userExample);
+updateData(JSON.stringify([userExample]));
