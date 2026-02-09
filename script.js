@@ -237,3 +237,13 @@ export function showMsg(text, type = 'info') {
         }
     }, 3000);
 }
+
+const bgMusic = new Audio('./assets/music.mp3');
+bgMusic.volume = 0.2;
+bgMusic.loop = true; 
+bgMusic.play().catch(error => {
+    console.log("Не удалось запустить музыку:", error);
+    document.addEventListener('click', () => {
+        bgMusic.play();
+    }, { once: true }); 
+});
