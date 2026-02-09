@@ -176,7 +176,7 @@ function renderPage(appData) {
         game.classList.remove("hidden");
     }
 
-    // ___________________________FIGHT_______________________________________
+    // ___________________________FIGHT______________________________________
 
     fightField(userState);
 
