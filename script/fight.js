@@ -1,6 +1,6 @@
 export function fightField(userState) {
     const zoneNames = ["Head", "Neck", "Body", "Belly", "Legs"];
-    const damage = 100;
+    const damage = 10;
 
     const game = document.querySelector(".game");
 
@@ -17,14 +17,13 @@ export function fightField(userState) {
     const enemyHealthBar = enemy.querySelector(".healthBar");
     const enemyHealthFill = enemyHealthBar.querySelector(".healthFill");
     let enemyHP = 150;
-
     const attackZonesBox = game.querySelector("#attackZones");
     const attackCheckBoxes = attackZonesBox.querySelectorAll(".zoneCheckbox");
-
     const defenseZonesBox = game.querySelector("#defenseZones");
     const defenseCheckBoxes = defenseZonesBox.querySelectorAll(".zoneCheckbox");
-
     const attackBtn = game.querySelector(".attackBtn");
+    let attackSelected = null;
+    let defenseSelected = [];
 
     function updateProfileStat(index) {
         const profile = document.querySelector(".profile");
@@ -38,9 +37,10 @@ export function fightField(userState) {
         profileBattles.innerText = userState.games;
         profileWinrate.innerText =
             userState.games > 0
-                ? ((Number(userState.wins) /
-                      Number(userState.games)) *
-                  100).toFixed(2)
+                ? (
+                      (Number(userState.wins) / Number(userState.games)) *
+                      100
+                  ).toFixed(2)
                 : 0;
     }
 
@@ -98,8 +98,18 @@ export function fightField(userState) {
         userState.games += 1;
 
         updateProfileStat(userState.userId);
-        console.log(userState);
         clearAllValues();
+    }
+
+    function checkButton() {
+        const isAttackSelected = attackSelected !== null;
+        const isDefenseSelected = defenseSelected.length === 2;
+        
+        if (isAttackSelected && isDefenseSelected) {
+            attackBtn.disabled = false;
+        } else {
+            attackBtn.disabled = true;
+        }
     }
 
     function calcAction() {
@@ -107,7 +117,6 @@ export function fightField(userState) {
         let selectedDefenseCheckbox = findSelectedCheckboxes(defenseCheckBoxes);
         let enemyAttackZone = getRandomDir();
         let enemyDefenseZones = getTwoUniqueNum(0, 4);
-
         let myDamage = calcDamage(selectedAttacCheckbox, enemyDefenseZones);
         enemyHP = enemyHP - myDamage;
         updateHpValue(enemyHP, enemyHealth, enemyHealthFill);
@@ -126,4 +135,38 @@ export function fightField(userState) {
     }
 
     attackBtn.addEventListener("click", calcAction);
+    attackCheckBoxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", (e) => {
+            if (e.target.checked) {
+                attackCheckBoxes.forEach((cb) => {
+                    if (cb !== e.target) {
+                        cb.checked = false;
+                    }
+                });
+                attackSelected = index; 
+            } else {
+                attackSelected = null; 
+            }
+            checkButton();
+        });
+    });
+    
+    defenseCheckBoxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", (e) => {
+            const zone = index; 
+            if (e.target.checked) {
+                if (!defenseSelected.includes(zone)) {
+                    defenseSelected.push(zone);
+                }
+                if (defenseSelected.length > 2) {
+                    const firstZone = defenseSelected[0];
+                    defenseCheckBoxes[firstZone].checked = false;
+                    defenseSelected.shift();
+                }
+            } else {
+                defenseSelected = defenseSelected.filter(z => z !== zone);
+            }
+            checkButton();
+        });
+    });
 }

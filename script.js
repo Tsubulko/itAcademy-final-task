@@ -18,8 +18,6 @@ function renderPage(appData) {
     const saveInfoBtn = document.querySelector(".saveInfo");
     const loginBtn = document.querySelector(".loginBtn");
 
-    /** Profile stat */
-
     const profileUserName = profile.querySelector("#profile-username");
     const profileWins = profile.querySelector("#profile-wins");
     const profileBattles = profile.querySelector("#profile-battles");
@@ -54,7 +52,7 @@ function renderPage(appData) {
     }
 
     function hideAll() {
-        // game.classList.add("hidden");
+        game.classList.add("hidden");
         profile.classList.add("hidden");
     }
 
@@ -105,12 +103,10 @@ function renderPage(appData) {
         alert("Success registration!!!");
         userNameInput.value = "";
         userPasswordInput.value = "";
-        console.log(appDataArray);
         updateData(JSON.stringify(appDataArray));
         authorization.classList.add("hidden");
         navMenu.classList.remove("hidden");
         game.classList.remove("hidden");
-        console.log(userState);
     }
 
     function isUserExist(userNameInputValue) {
@@ -125,27 +121,19 @@ function renderPage(appData) {
     function save() {
         let i = userState.userId;
 
-        console.log("userState--", userState);
-        console.log("appDataArray--", appDataArray);
-
         appDataArray[i].userId = userState.userId;
         appDataArray[i].userName = userState.userName;
         appDataArray[i].password = userState.password;
         appDataArray[i].games = userState.games;
         appDataArray[i].wins = userState.wins;
 
-        console.log("mmm string -->", JSON.stringify(appDataArray));
-
         updateData(JSON.stringify(appDataArray));
-
-        console.log("state successfully saved");
     }
 
     function loginUser() {
         const userNameInput = document.querySelector(".userNameInput");
         const userPasswordInput = document.querySelector(".userPasswordInput");
         let index = isUserExist(userNameInput.value);
-        console.log(index);
 
         if (
             userNameInput.value.length <= 3 ||
@@ -189,19 +177,18 @@ function renderPage(appData) {
 
         updateProfileStat(index);
         game.classList.remove("hidden");
-        console.log(userState);
     }
 
     // ___________________________FIGHT_______________________________________
 
     fightField(userState);
 
-    // _______________________________________________________________________
-
     navItems[0].addEventListener("click", () => {
         showBlock(game);
     });
     navItems[1].addEventListener("click", () => showBlock(profile));
+    navItems[2].addEventListener("click", () => hideAll(),
+  authorization.classList.remove("hidden"));
     navItems[3].addEventListener("click", () => save());
     saveInfoBtn.addEventListener("click", registrationSubmit);
     loginBtn.addEventListener("click", loginUser);

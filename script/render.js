@@ -23,12 +23,16 @@ export function renderLayout() {
             <h1>Battle</h1>
         </div>
         
-        <div class="text" id="status-text">Your move! Choose your attack and defense zones.</div>
-        <div class="instructions" id="instructions">Choose 1 attack zone and 2 defense zones</div>
+        <div class="info-block">
+          <div class="text" id="status-text">Your move! Choose your attack and defense zones.</div>
+          <div class="instructions" id="instructions">Choose 1 attack zone and 2 defense zones</div>
+        </div>
 
         <div class="fighters">
             <div class="player fighter">
-                <img class="" src="" alt="avatar">
+                <div class='imgBox'>
+                  <img src="./assets/user.png" alt="avatar">
+                </div>
                 <div class="playerName fighterName">Player: <span id="playerName">Player</span></div>
                 <div class="healthBar">
                     <div class="healthFill" id="playerHealthBar"></div>
@@ -88,8 +92,9 @@ export function renderLayout() {
                 </div>
             </div>
             <div class="enemy fighter">
-            <div class='imgBox'></div>
-                <img src="" alt="avatar">
+            <div class='imgBox'>
+                <img src="./assets/troll.jpg" alt="avatar">
+            </div>
                 <div class="enemyName fighterName">Enemy: <span id="enemyName">Troll</span></div>
                 <div class="healthBar">
                     <div class="healthFill" id="enemy-health-bar"></div>
@@ -99,7 +104,7 @@ export function renderLayout() {
         </div>
       </div>
 
-      <button class="attackBtn" id="attackBtn" >ATTACK!</button>
+      <button class="attackBtn" id="attackBtn" disabled>ATTACK!</button>
 
       <div class="battleLog">
             <h3>Battle log</h3>
@@ -128,8 +133,10 @@ export function renderLayout() {
             <input class="userNameInput" name="userNameInput" type="text"></input>
             <label for="userPasswordInput">Password</label>
             <input class="userPasswordInput" name="userPasswordInput" type="text"></input>
-            <button class="saveInfo">Registration</button>
-            <button class="loginBtn">Login</button>
+            <div class="logRegBtns">
+                <button class="saveInfo">Registration</button>
+                <button class="loginBtn">Login</button>
+            </div>
         </div>
     </div>
     `;
