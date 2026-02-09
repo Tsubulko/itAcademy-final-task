@@ -136,7 +136,8 @@ export function fightField(userState) {
             return;
         }
     }
-}
+
+
     
     attackBtn.addEventListener("click", calcAction);
     attackCheckBoxes.forEach((checkbox, index) => {
