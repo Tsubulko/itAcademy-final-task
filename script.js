@@ -69,16 +69,14 @@ function renderPage(appData) {
             userNameInput.value.length <= 3 ||
             userPasswordInput.value.length < 4
         ) {
-            alert(
-                `Username should contains at least 3 symbols!!! \n\nPassword should contains at least 4 symbols or nubers!!!`,
-            );
+            showMsg('Username should contains at least 3 symbols!!! Password should contains at least 4 symbols or nubers!!!', 'error');
             userNameInput.value = "";
             userPasswordInput.value = "";
             return;
         }
 
         if (isUserExist(userNameInput.value) >= 0) {
-            alert(`User already exist`);
+            showMsg('User exists', 'error');
             userNameInput.value = "";
             userPasswordInput.value = "";
             return;
@@ -100,13 +98,14 @@ function renderPage(appData) {
             wins: 0,
         });
 
-        alert("Success registration!!!");
+        showMsg('Registration ok', 'success');
         userNameInput.value = "";
         userPasswordInput.value = "";
         updateData(JSON.stringify(appDataArray));
         authorization.classList.add("hidden");
         navMenu.classList.remove("hidden");
         game.classList.remove("hidden");
+        updateProfileStat(appDataArray.length - 1);
     }
 
     function isUserExist(userNameInputValue) {
@@ -139,23 +138,21 @@ function renderPage(appData) {
             userNameInput.value.length <= 3 ||
             userPasswordInput.value.length < 4
         ) {
-            alert(
-                `Username should contains at least 3 symbols!!! \n\nPassword should contains at least 4 symbols or nubers!!!`,
-            );
+            showMsg('Username should contains at least 3 symbols!!! Password should contains at least 4 symbols or nubers!!!', 'error');
             userNameInput.value = "";
             userPasswordInput.value = "";
             return;
         }
 
         if (index < 0) {
-            alert(`User not found`);
+            showMsg('User not found', 'error');
             userNameInput.value = "";
             userPasswordInput.value = "";
             return;
         }
 
         if (userPasswordInput.value !== appDataArray[index].password) {
-            alert("Incorrect password!");
+            showMsg('Wrong password', 'error');
             userNameInput.value = "";
             userPasswordInput.value = "";
             return;
@@ -171,7 +168,7 @@ function renderPage(appData) {
 
         userNameInput.value = "";
         userPasswordInput.value = "";
-        alert("Success login!");
+        showMsg('Success login!', 'success');
         authorization.classList.add("hidden");
         navMenu.classList.remove("hidden");
 
@@ -187,8 +184,25 @@ function renderPage(appData) {
         showBlock(game);
     });
     navItems[1].addEventListener("click", () => showBlock(profile));
-    navItems[2].addEventListener("click", () => hideAll(),
-  authorization.classList.remove("hidden"));
+    navItems[2].addEventListener("click", () => {
+    game.classList.add("hidden");
+    profile.classList.add("hidden");
+    navMenu.classList.add("hidden");
+    authorization.classList.remove("hidden");
+    
+    userState.userId = -1;
+    userState.userName = "";
+    userState.password = "";
+    userState.games = -1;
+    userState.wins = -1;
+    
+    const userNameInput = document.querySelector(".userNameInput");
+    const userPasswordInput = document.querySelector(".userPasswordInput");
+    if (userNameInput) userNameInput.value = "";
+    if (userPasswordInput) userPasswordInput.value = "";
+    
+    showMsg("Logged out", 'info');
+});
     navItems[3].addEventListener("click", () => save());
     saveInfoBtn.addEventListener("click", registrationSubmit);
     loginBtn.addEventListener("click", loginUser);
@@ -201,3 +215,25 @@ getData().then((data) => {
     let appData = data;
     renderPage(appData);
 });
+
+export function showMsg(text, type = 'info') {
+    const msgDiv = document.createElement('div');
+    msgDiv.textContent = text;
+    msgDiv.style.cssText = `
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
+        padding: 8px 12px;
+        margin: 4px;
+        border-radius: 4px;
+        font-size: 14px;
+    `;
+    
+    const container = document.getElementById('messages');
+    container.appendChild(msgDiv);
+    
+    setTimeout(() => {
+        if (msgDiv.parentNode) {
+            msgDiv.parentNode.removeChild(msgDiv);
+        }
+    }, 3000);
+}

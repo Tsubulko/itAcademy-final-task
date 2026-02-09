@@ -16,7 +16,7 @@ export function renderLayout() {
             </li>
         </ul>
     </nav>
-  
+    <div id="messages"></div>
     <div class="game">
       <div class="gameField">
         <div class="header">
@@ -116,7 +116,9 @@ export function renderLayout() {
   
     <div class="profile">
         <div class="profileField">
-            <div class="avatar">img</div>
+            <div class='imgBox'>
+                <img src="./assets/user.png" alt="avatar">
+            </div>
             <div class="profileInfoText">
                 <h2 id="profile-username">Username</h2>
                 <p>Wins: <span id="profile-wins">0</span></p>
@@ -128,7 +130,7 @@ export function renderLayout() {
   
     <div class="authorization">
         <div class="authorizationField">
-            <h2>Authorization Field</h2>
+            <h2>Authorization</h2>
             <label for="userNameInput"> Username</label>
             <input class="userNameInput" name="userNameInput" type="text"></input>
             <label for="userPasswordInput">Password</label>

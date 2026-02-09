@@ -45,6 +45,37 @@ body {
     box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
 }
 
+#messages {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+}
+
+.msg {
+    padding: 8px 12px;
+    margin: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+}
+
+.msg-success {
+    background: #4CAF50;
+}
+
+.msg-error {
+    background: #f44336;
+}
+
+.msg-info {
+    background: #2196F3;
+}
+
+.msg-warning {
+    background: #ff9800;
+}
+
 .game, .profile, .authorization {
     background: rgba(52, 73, 94, 0.9);
     padding: 25px;

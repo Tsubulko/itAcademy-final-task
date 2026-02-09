@@ -1,3 +1,5 @@
+import { showMsg } from "../script.js";
+
 export function fightField(userState) {
     const zoneNames = ["Head", "Neck", "Body", "Belly", "Legs"];
     const damage = 10;
@@ -24,6 +26,7 @@ export function fightField(userState) {
     const attackBtn = game.querySelector(".attackBtn");
     let attackSelected = null;
     let defenseSelected = [];
+    const battleLog = game.querySelector("#battleLogContent");
 
     function updateProfileStat(index) {
         const profile = document.querySelector(".profile");
@@ -90,12 +93,12 @@ export function fightField(userState) {
 
     function gameEnd(winner) {
         if (winner === "player") {
-            userState.wins += 1;
-            alert("Victory");
+            userState.wins = +userState.wins + 1;
+            showMsg("Victory", 'success');
         } else {
-            alert("Lose");
+            showMsg("Lose", 'error');
         }
-        userState.games += 1;
+        userState.games = userState.games + 1;
 
         updateProfileStat(userState.userId);
         clearAllValues();
@@ -133,7 +136,8 @@ export function fightField(userState) {
             return;
         }
     }
-
+}
+    
     attackBtn.addEventListener("click", calcAction);
     attackCheckBoxes.forEach((checkbox, index) => {
         checkbox.addEventListener("change", (e) => {
