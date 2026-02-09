@@ -13,10 +13,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20%;
-    height: 200px;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
     background: #8676d6;
     list-style-type: none;
+    padding: 10px 20px;
     .navItem button {
         padding: 10px 20px;
         background: #9e4040;
@@ -36,6 +38,9 @@
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    &.hidden{
+        display: none;
+    }
     .gameField {
         .header {
             display: flex;
@@ -52,12 +57,23 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
+                .imgbox{
+                    width: 60px;
+                    height: 20px;
+                }
             }
             .healthBar {
+                position: relative;
                 width: 100px;
                 height: 10px;
                 border-radius: 5px;
-                background: #008528;
+                background: #5f6c63;
+                .healthFill{
+                    height: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+                    background: #008528;
+                }
             }
             .zonesContainer {
                 display: flex;
@@ -94,27 +110,29 @@
                         }
                     }
                 }
-                .attackBtn {
-                    width: 100%;
-                    padding: 10px;
-                    margin: 10px 0;
-                    background: #ff9900;
-                    border: none;
-                    color: white;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-
-                .attackBtn:hover:not(:disabled) {
-                    background: #ffaa00;
-                }
-
-                .attackBtn:disabled {
-                    background: #ccc;
-                    cursor: not-allowed;
-                }
             }
         }
+    }
+    .attackBtn {
+        width: 150px;
+        padding: 10px;
+        margin: 10px 0;
+        background: #ff9900;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    
+    .attackBtn:hover:not(:disabled) {
+        background: #ffaa00;
+    }
+    
+    .attackBtn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
     }
 }
 
@@ -125,6 +143,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &.hidden{
+        display: none;
+    }
     .profileField {
         display: flex;
         flex-direction: row;

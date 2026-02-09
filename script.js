@@ -2,10 +2,11 @@ import { postData } from "./script/server.js";
 import { getData } from "./script/server.js";
 import { updateData } from "./script/server.js";
 import { renderLayout } from "./script/render.js";
+import { fightField } from "./script/fight.js";
 
 function renderPage(appData) {
     renderLayout();
-    
+
     let appDataArray = JSON.parse(appData);
     console.log(appDataArray);
 
@@ -24,7 +25,21 @@ function renderPage(appData) {
     const profileBattles = profile.querySelector("#profile-battles");
     const profileWinrate = profile.querySelector("#profile-winrate");
 
-    // function handleAppDataChange(){}
+    const userState = {
+        userId: -1,
+        userName: "",
+        password: "",
+        games: -1,
+        wins: -1,
+    };
+
+    function updateUserState(userId, userName, password, games, wins) {
+        userState.userId = userId;
+        userState.userName = userName;
+        userState.password = password;
+        userState.games = games;
+        userState.wins = wins;
+    }
 
     function updateProfileStat(index) {
         profileUserName.innerText = appDataArray[index].userName;
@@ -32,8 +47,9 @@ function renderPage(appData) {
         profileBattles.innerText = appDataArray[index].games;
         profileWinrate.innerText =
             appDataArray[index].games > 0
-                ? (Number(appDataArray[index].wins) /
-                  Number(appDataArray[index].games)) * 100
+                ? ((Number(appDataArray[index].wins) /
+                      Number(appDataArray[index].games)) *
+                  100).toFixed(2)
                 : 0;
     }
 
@@ -70,6 +86,14 @@ function renderPage(appData) {
             return;
         }
 
+        updateUserState(
+            appDataArray.length,
+            userNameInput.value,
+            userPasswordInput.value,
+            0,
+            0,
+        );
+
         appDataArray.push({
             userId: appDataArray.length,
             userName: userNameInput.value,
@@ -85,6 +109,8 @@ function renderPage(appData) {
         updateData(JSON.stringify(appDataArray));
         authorization.classList.add("hidden");
         navMenu.classList.remove("hidden");
+        game.classList.remove("hidden");
+        console.log(userState);
     }
 
     function isUserExist(userNameInputValue) {
@@ -94,6 +120,25 @@ function renderPage(appData) {
             }
         }
         return -1;
+    }
+
+    function save() {
+        let i = userState.userId;
+
+        console.log("userState--", userState);
+        console.log("appDataArray--", appDataArray);
+
+        appDataArray[i].userId = userState.userId;
+        appDataArray[i].userName = userState.userName;
+        appDataArray[i].password = userState.password;
+        appDataArray[i].games = userState.games;
+        appDataArray[i].wins = userState.wins;
+
+        console.log("mmm string -->", JSON.stringify(appDataArray));
+
+        updateData(JSON.stringify(appDataArray));
+
+        console.log("state successfully saved");
     }
 
     function loginUser() {
@@ -127,6 +172,15 @@ function renderPage(appData) {
             userPasswordInput.value = "";
             return;
         }
+
+        updateUserState(
+            appDataArray[index].userId,
+            appDataArray[index].userName,
+            appDataArray[index].password,
+            appDataArray[index].games,
+            appDataArray[index].wins,
+        );
+
         userNameInput.value = "";
         userPasswordInput.value = "";
         alert("Success login!");
@@ -134,20 +188,26 @@ function renderPage(appData) {
         navMenu.classList.remove("hidden");
 
         updateProfileStat(index);
+        game.classList.remove("hidden");
+        console.log(userState);
     }
 
+    // ___________________________FIGHT_______________________________________
+
+    fightField(userState);
+
+    // _______________________________________________________________________
+
     navItems[0].addEventListener("click", () => {
-        showData();
         showBlock(game);
     });
     navItems[1].addEventListener("click", () => showBlock(profile));
+    navItems[3].addEventListener("click", () => save());
     saveInfoBtn.addEventListener("click", registrationSubmit);
     loginBtn.addEventListener("click", loginUser);
-    // navMenu.classList.add("hidden");
+    navMenu.classList.add("hidden");
 
     hideAll();
-
-    
 }
 
 getData().then((data) => {

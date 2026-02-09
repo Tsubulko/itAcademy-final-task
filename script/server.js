@@ -1,10 +1,76 @@
-const userExample = {
-  userId: "number",
-  userName: "string",
-  password: "string",
-  games: "number",
-  wins: "number",
-};
+const DATA = [
+    {
+        userId: "1",
+        userName: "Ivan",
+        password: "12345",
+        games: "10",
+        wins: "1",
+    },
+    {
+        userId: "2",
+        userName: "Pavel",
+        password: "67890",
+        games: "17",
+        wins: "16",
+    },
+    {
+        userId: "3",
+        userName: "Igor",
+        password: "krutoy",
+        games: "134",
+        wins: "81",
+    },
+    {
+        userId: "4",
+        userName: "Alex",
+        password: "24.05.2009",
+        games: "3",
+        wins: "0",
+    },
+    {
+        userId: "5",
+        userName: "John",
+        password: "america",
+        games: "45",
+        wins: "31",
+    },
+    {
+        userId: "6",
+        userName: "Oleg",
+        password: "gazmanov",
+        games: "22",
+        wins: "11",
+    },
+    {
+        userId: "7",
+        userName: "Yan",
+        password: "toples",
+        games: "24",
+        wins: "9",
+    },
+    {
+        userId: "8",
+        userName: "Sofy",
+        password: "11111",
+        games: "7",
+        wins: "2",
+    },
+    {
+        userId: "9",
+        userName: "Masha",
+        password: "bear",
+        games: "55",
+        wins: "2",
+    },
+    {
+        userId: "10",
+        userName: "Glasha",
+        password: "00001",
+        games: "19",
+        wins: "14",
+    }
+];
+;
 
 export function postData(myValue) {
   const url = "https://fe.it-academy.by/AjaxStringStorage2.php";
@@ -89,4 +155,4 @@ export function updateData(updatedValue) {
   });
 }
 
-updateData(JSON.stringify([userExample]));
+// updateData(JSON.stringify(DATA));

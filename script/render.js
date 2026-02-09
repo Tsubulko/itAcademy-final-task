@@ -8,6 +8,12 @@ export function renderLayout() {
             <li class="navItem">
                 <button class="navItemBtn">Profile</button>
             </li>
+            <li class="navItem">
+                <button class="navItemBtn">Log out</button>
+            </li>
+            <li class="navItem">
+                <button class="navItemBtn">Save Game</button>
+            </li>
         </ul>
     </nav>
   
@@ -27,7 +33,7 @@ export function renderLayout() {
                 <div class="healthBar">
                     <div class="healthFill" id="playerHealthBar"></div>
                 </div>
-                <div class="playerHelth healthText" id="playerHealthText">150/150</div>
+                <div class="playerHealth healthText" id="playerHealthText">150</div>
             </div>
             <div class="zonesContainer">
                 <div class="zoneSelector">
@@ -82,17 +88,18 @@ export function renderLayout() {
                 </div>
             </div>
             <div class="enemy fighter">
-                <img class="" src="" alt="avatar">
-                <div class="enemyName fighterName">Enemy: <span id="enemy-name">Troll</span></div>
+            <div class='imgBox'></div>
+                <img src="" alt="avatar">
+                <div class="enemyName fighterName">Enemy: <span id="enemyName">Troll</span></div>
                 <div class="healthBar">
                     <div class="healthFill" id="enemy-health-bar"></div>
                 </div>
-                <div class="enemyrHelth healthText" id="enemy-health-text">150/150</div>
+                <div class="enemyHealth healthText" id="enemy-health-text">150</div>
             </div>
         </div>
       </div>
 
-      <button class="attackBtn" id="attackBtn" disabled>ATTACK!</button>
+      <button class="attackBtn" id="attackBtn" >ATTACK!</button>
 
       <div class="battleLog">
             <h3>Battle log</h3>
